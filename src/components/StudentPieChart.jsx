@@ -13,7 +13,7 @@ const StudentPieChart = () => {
       {
         data: [800, 502], // Example data
         backgroundColor: ["#297078", "#4fadb2"],
-        hoverBackgroundColor: ["#45a049", "#f57c00"],
+        hoverBackgroundColor: ["#245b61", "#368e96"],
       },
     ],
   };
