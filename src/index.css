@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root{
+    --poppins-: "Poppins", serif;
+    --bg-blue-700: #245b61;
+    --bg-blue-600: #297078;                                                                                                                                                                                                                     
+    --bg-blue-500: #368e96;
+    --bg-blue-400: #4fadb2;
+    --bg-blue-300: #7bcbcd;
+    --bg-blue-200: #ace3e2;
+    --bg-blue-100: #d6f1f0;
+}
+                                                                                                                                                                        
+/* ----------------- fonts ---------------- */
+.font-poppins{
+    font-family: var(--poppins-);
+}
+
+/* ----------------- Text-Color ---------------- */
+.text-blue-700{
+    color: var(--bg-blue-700) !important;
+}
+.text-blue-600{
+    color: var(--bg-blue-600) !important;
+}
+.text-blue-500{
+    color: var(--bg-blue-500) !important;
+}
+.text-blue-400{
+    color: var(--bg-blue-400) !important;
+}
+.text-blue-300{
+    color: var(--bg-blue-300) !important;
+}
+.text-blue-200{
+    color: var(--bg-blue-200) !important;
+}
+.text-blue-100{
+    color: var(--bg-blue-100) !important;
+}
+
+/* ----------------- bg-Color ---------------- */
+.bg-blue-700{
+    background-color: var(--bg-blue-700) !important;
+}
+.bg-blue-600{
+    background-color: var(--bg-blue-600) !important;
+}
+.bg-blue-500{
+    background-color: var(--bg-blue-500) !important;
+}
+.bg-blue-400{
+    background-color: var(--bg-blue-400) !important;
+}
+.bg-blue-300{
+    background-color: var(--bg-blue-300) !important;
+}
+.bg-blue-200{
+    background-color: var(--bg-blue-200) !important;
+}
+.bg-blue-100{
+    background-color: var(--bg-blue-100) !important;
+}
+
+.hover-li:hover{
+    color: white !important;
+    background-color: var(--bg-blue-500) !important;
+    border-radius: 8px;
+}
