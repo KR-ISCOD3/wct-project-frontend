@@ -25,18 +25,18 @@ function SideBar() {
                   Dashboard
                 </li>
               </NavLink>
-              <a href="" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+              <NavLink to="/student" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
                 <li className="py-2 px-3">
                   <FaUserFriends className="me-2 fs-5"/>
                   Students
                 </li>
-              </a>
-              <a href="" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+              </NavLink>
+              <NavLink to="/teacher" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
                 <li className="py-2 px-3">
                   <FaUserCog className="me-2 fs-5"/>
                   Teachers
                 </li>
-              </a>
+              </NavLink>
               <a href="" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
                 <li className="py-2 px-3">
                   <RiHomeSmile2Fill className="me-2 fs-5"/>

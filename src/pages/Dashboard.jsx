@@ -10,7 +10,7 @@ function Dashboard() {
   return (
     <div className="p-3 font-poppins">
       <h2>Dashboard Overview</h2>
-      <p>Welcome back to the school management system</p>
+      <p className="text-secondary">Welcome back to the school management system</p>
       <div className="row border-bottom  pb-3">
         <div className="col-3">
           <div className=" d-flex align-items-center p-3 border rounded-2">
@@ -64,15 +64,7 @@ function Dashboard() {
 
       {/* <DashboardChart/> */}
       <div className="row font-poppins ">
-        <div className="col-4 p-3">
-          <div className="card p-3">
-            <div className="border-bottom mb-3 p-2">
-              <h5 className="m-0 text-center text-secondary">Student Gender Distribution</h5>
-            </div>
-            <StudentPieChart />
-          </div>
-        </div>
-        <div className="col-8 p-3">
+        <div className="col-9 p-3">
           <div className="card p-3">
             <div className="border-bottom mb-3 p-2">
               <h5 className="m-0 text-center text-secondary">Monthly Income Trend</h5>
@@ -80,6 +72,15 @@ function Dashboard() {
             <IncomeLineChart/>
           </div>
         </div>
+        <div className="col-3 p-3">
+          <div className="card p-3">
+            <div className="border-bottom mb-3 p-2">
+              <h5 className="m-0 text-center text-secondary">Student Gender Distribution</h5>
+            </div>
+            <StudentPieChart />
+          </div>
+        </div>
+       
       </div>
     </div>
   );

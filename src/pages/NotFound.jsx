@@ -2,7 +2,7 @@ import React from 'react'
 
 function NotFound() {
   return (
-    <div>
+    <div className='d-block d-xl-none'>
       <h1>Not found</h1>
     </div>
   )

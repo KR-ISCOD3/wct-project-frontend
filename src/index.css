@@ -66,3 +66,7 @@
     background-color: var(--bg-blue-500) !important;
     border-radius: 8px;
 }
+
+button:hover{
+    cursor: pointer;
+}
