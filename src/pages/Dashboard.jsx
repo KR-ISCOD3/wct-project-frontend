@@ -82,6 +82,60 @@ function Dashboard() {
         </div>
        
       </div>
+
+      <div>
+          <h2 class="mt-4">Popular Courses 📊</h2>
+          <p class="text-secondary border-bottom pb-2">Only the most enrolled courses are displayed.</p>
+          <table class="table font-poppins table-hover border">
+              <thead>
+                  <tr> 
+                      <td className="text-secondary">Course/Code</td>
+                      <td className="text-secondary">Male Students</td>
+                      <td className="text-secondary">Female Students</td>
+                      <td className="text-secondary">Total Students</td>
+                      <td className="text-secondary">Total Income ($)</td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>C++</td>
+                      <td>120</td>
+                      <td>80</td>
+                      <td>200</td>
+                      <td>12,500</td>
+                  </tr>
+                  <tr>
+                      <td>React</td>
+                      <td>90</td>
+                      <td>110</td>
+                      <td>200</td>
+                      <td>10,200</td>
+                  </tr>
+                  <tr>
+                      <td>Java</td>
+                      <td>150</td>
+                      <td>100</td>
+                      <td>250</td>
+                      <td>16,100</td>
+                  </tr>
+                  <tr>
+                      <td>Python</td>
+                      <td>110</td>
+                      <td>90</td>
+                      <td>200</td>
+                      <td>10,100</td>
+                  </tr>
+                  <tr class="fw-bold ">
+                      <td>Total</td>
+                      <td>470</td>
+                      <td>380</td>
+                      <td>850</td>
+                      <td>48,900</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
     </div>
   );
 }
