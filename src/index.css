@@ -90,3 +90,13 @@ button:hover {
   scrollbar-width: thin;
   scrollbar-color: var(--bg-blue-600) #f1f1f1;
 }
+
+
+.content-login{
+  width: 65%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}

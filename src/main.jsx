@@ -11,6 +11,8 @@ import NotFound from './pages/NotFound.jsx'
 import Teacher from './pages/Teacher.jsx'
 import Student from './pages/Student.jsx'
 import Course from './pages/Course.jsx'
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,9 +22,13 @@ createRoot(document.getElementById('root')).render(
           <Route index element={<Dashboard />} />  {/* Default child route */}
           <Route path='teacher' element={<Teacher />} />
           <Route path='student' element={<Student />} />
-          <Route path='course' element={<Course />} />
+          <Route path='course' element={<Course />} />        
         </Route>
           <Route path='*' element={<NotFound />} /> {/* Catch-all inside App */}
+          
+          <Route path='login' element={<Login/>}/>
+          <Route path='register' element={<Register/>} />
+     
       </Routes>
     </BrowserRouter>
   </StrictMode>,
