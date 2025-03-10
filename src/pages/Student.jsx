@@ -7,7 +7,7 @@ import TableStudent from "../components/TableStudent";
 
 function Student() {
   return (
-    <div className="p-3 font-poppins">
+    <div className="p-3 font-poppins animate__animated animate__fadeIn animate__faster">
       <div className="d-flex">
         <form action="" className="w-100 pb-3 border-bottom">
           <h2>Register-Form</h2>

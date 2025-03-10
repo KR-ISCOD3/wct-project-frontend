@@ -9,7 +9,9 @@
   --bg-blue-200: #ace3e2;
   --bg-blue-100: #d6f1f0;
 }
-
+::-webkit-scrollbar{
+  width: 0px;
+}
 /* ----------------- fonts ---------------- */
 .font-poppins {
   font-family: var(--poppins-);
@@ -99,4 +101,13 @@ button:hover {
   left: 50%;
   transform: translate(-50%,-50%);
   text-align: center;
+}
+
+.content-register{
+  background: url(./image/bg-register.png);
+  background-repeat: no-repeat;
+
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 }

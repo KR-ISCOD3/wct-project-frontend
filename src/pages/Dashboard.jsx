@@ -9,10 +9,12 @@ import IncomeLineChart from "../components/IncomeLineChart";
 function Dashboard() {
   return (
     <div className="p-3 font-poppins">
-      <h2>Dashboard Overview</h2>
-      <p className="text-secondary">Welcome back to the school management system</p>
+      <div className="animate__animated animate__fadeIn animate__faster">
+        <h2>Dashboard Overview</h2>
+        <p className="text-secondary">Welcome back to the school management system</p>
+      </div>
       <div className="row border-bottom  pb-3">
-        <div className="col-3">
+        <div className="col-3 animate__animated animate__fadeIn animate__faster">
           <div className=" d-flex align-items-center p-3 border rounded-2">
             <div className="col-7 ">
               <p className="m-0 text-secondary">Total Students</p>
@@ -24,7 +26,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-3 animate__animated animate__fadeIn animate__faster">
           <div className=" d-flex align-items-center p-3 border rounded-2">
             <div className="col-7 ">
               <p className="m-0 text-secondary">Teachers</p>
@@ -36,7 +38,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-3 animate__animated animate__fadeIn animate__faster">
           <div className=" d-flex align-items-center p-3 border rounded-2">
             <div className="col-7">
               <p className="m-0 text-secondary">Classes</p>
@@ -48,7 +50,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-3 animate__animated animate__fadeIn animate__faster">
           <div className=" d-flex align-items-center p-3 border rounded-2">
             <div className="col-7 ">
               <p className="m-0 text-secondary">Monthly Income</p>
@@ -63,7 +65,7 @@ function Dashboard() {
       </div>
 
       {/* <DashboardChart/> */}
-      <div className="row font-poppins ">
+      <div className="row font-poppins animate__animated animate__fadeInUp animate__faster">
         <div className="col-9 p-3">
           <div className="card p-3">
             <div className="border-bottom mb-3 p-2">
@@ -83,7 +85,7 @@ function Dashboard() {
        
       </div>
 
-      <div>
+      <div className="animate__animated animate__fadeInUp animate__faster">
           <h2 class="mt-4">Popular Courses 📊</h2>
           <p class="text-secondary border-bottom pb-2">Only the most enrolled courses are displayed.</p>
           <table class="table font-poppins table-hover border">
