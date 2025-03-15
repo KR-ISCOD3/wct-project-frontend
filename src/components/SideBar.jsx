@@ -38,15 +38,15 @@ function SideBar() {
             <NavLink to="/teacher" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <FaUserCog className="me-2 fs-5" />
-                Teachers
+                Instructors
               </li>
             </NavLink>
-            <a href="#" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+            <NavLink to="/class" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <RiHomeSmile2Fill className="me-2 fs-5" />
                 Classes
               </li>
-            </a>
+            </NavLink>
             <a href="#" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <MdDateRange className="me-2 fs-5" />

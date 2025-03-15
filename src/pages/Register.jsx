@@ -99,7 +99,7 @@ function Register() {
                     {/* work-status and  daysift */}
                     <div className='d-flex mb-3'>
                         <div className='col-4'>
-                          <label htmlFor="" className='form-label fw-medium'>Skill*</label>
+                          <label htmlFor="" className='form-label fw-medium'>Position*</label>
                           <select name="" id="" className='form-select rounded-2 shadow-none border'>
                             <option value="Mobile-App">Mobile-App</option>
                             <option value="Web-developer">Web-developer</option>
