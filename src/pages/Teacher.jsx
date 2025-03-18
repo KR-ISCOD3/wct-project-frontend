@@ -23,10 +23,10 @@ function Teacher() {
     <div className='p-3 font-poppins animate__animated animate__fadeIn animate__faster'>
       <div>
         <h2>Instructor</h2>
-        <p className='text-secondary'>Find the right instructor for your course.</p>
+        <p className='text-secondary mb-0'>Find the right instructor for your course.</p>
       </div>
 
-      <div className=' rounded-0 border-bottom py-3 my-3'>
+      <div className=' rounded-0 border-bottom py-3 mb-3 mt-2'>
           <div className='d-flex align-items-center mb-4'>
             <div className='me-2'>
               <select name="" id="" className='form-select shadow-none rounded-2 border'>
@@ -67,7 +67,7 @@ function Teacher() {
                   </a>
 
                   <ul className="dropdown-menu px-2">
-                    <NavLink className="nav-link p-2" href="#">
+                    <NavLink className="nav-link p-2" to="/account">
                       <li className='d-flex align-items-center'>
                         <IoEye className='fs-5 me-2' />
                         View Profile

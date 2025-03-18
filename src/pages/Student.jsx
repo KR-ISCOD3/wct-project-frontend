@@ -1,8 +1,6 @@
 import React from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import { TbTrashX } from "react-icons/tb";
-import RecentTable from "../components/TableStudent";
-import LastWeekTable from "../components/LastWeekTable";
 import TableStudent from "../components/TableStudent";
 
 function Student() {

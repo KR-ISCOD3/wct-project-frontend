@@ -17,6 +17,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Classes from "./pages/Classes.jsx";
 import AccountTeacher from "./pages/AccountTeacher.jsx";
+import Attendance from "./pages/Attendance.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -29,6 +30,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="course" element={<Course />} />
           <Route path="class" element={<Classes />} />
           <Route path="account" element={<AccountTeacher/>} />
+          <Route path="attendance" element={<Attendance/>}/>
         </Route>
         <Route path="*" element={<NotFound />} /> {/* Catch-all inside App */}
         <Route path="login" element={<Login />} />

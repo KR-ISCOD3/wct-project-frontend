@@ -27,7 +27,7 @@ function TableStudent() {
   };
 
   return (
-    <div className=" border rounded-3 p-3">
+    <div className="border rounded-3 p-3">
       <div className="d-flex justify-content-between align-items-center border-bottom pb-3">
         <div className='d-flex col-3 align-items-center'>
           <p className="m-0 fs-5 col-5">Student-Table</p>

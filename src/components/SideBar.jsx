@@ -4,6 +4,7 @@ import { MdDateRange } from "react-icons/md";
 import { RiHomeSmile2Fill } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 import { IoLogOut } from "react-icons/io5";
+import { PiStudentBold } from "react-icons/pi";
 
 function SideBar() {
   return (
@@ -47,16 +48,16 @@ function SideBar() {
                 Classes
               </li>
             </NavLink>
-            <a href="#" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
-              <li className="py-2 px-3">
-                <MdDateRange className="me-2 fs-5" />
-                Attendance
-              </li>
-            </a>
             <NavLink to="course" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <FaBookOpen className="me-2 fs-5" />
                 Courses
+              </li>
+            </NavLink>
+            <NavLink to="course" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+              <li className="py-2 px-3">
+                <PiStudentBold className="me-2 fs-5" />
+                Certificate
               </li>
             </NavLink>
           </ul>

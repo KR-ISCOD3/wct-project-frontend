@@ -64,7 +64,7 @@ function Course() {
 
             <div className="col-4 ps-0 pe-3 mt-0">
               <br />
-              <div className="d-flex">
+              <div className="d-flex justify-content-end">
                 <button className="mt-1 px-4 btn bg-secondary mx-2 text-light d-flex align-items-center">
                   <TbTrashX className="me-1 fs-5" />
                   <p className="m-0">Reset</p>
