@@ -27,7 +27,8 @@ function ClassTable() {
           <tr>
             <td className='text-secondary'>Instructors</td>
             <td className='text-secondary'>Class Course / Chapter</td>
-            <td className='text-secondary'>Total-Student</td>
+            <td className='text-secondary'>Time</td>
+            <td className='text-secondary '>Total-Student</td>
             <td className='text-secondary'>Building</td>
             <td className='text-secondary'>Room</td>
             <td className='text-secondary'>Class Status</td>
@@ -53,7 +54,10 @@ function ClassTable() {
                 <p className='text-blue-700 m-0'>Coures  : {data.course}</p>
                 <p className='m-0'>Chapter : {data.chapter}</p>
               </td>
-              <td>{data.totalStudents}</td>
+              <td>
+                02:00 - 03:15 (pm)
+              </td>
+              <td >{data.totalStudents} <span className='text-secondary'>students</span></td>
               <td className='text-primary'>{data.building}</td>
               <td className='text-blue-700'>{data.room}</td>
               <td>

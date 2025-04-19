@@ -1,7 +1,14 @@
-import React from 'react'
-import { IoNotifications, IoSearch } from 'react-icons/io5'
+import React from 'react';
+import { IoNotifications, IoSearch } from 'react-icons/io5';
+import { useSelector } from 'react-redux'; // Import useSelector to access Redux state
 
 function Header() {
+  // Access user data from Redux store
+  const user = useSelector((state) => state.auth.user);
+
+  // Fallback to a default image if the user image is not available
+  const userImage = user?.image || "./image/placeholder.png"; // Replace with a default image URL
+
   return (
     <div className='container-fluid p-3 font-poppins border-bottom'>
       <div className='d-flex justify-content-between align-items-center'>
@@ -18,17 +25,21 @@ function Header() {
         <div className='d-flex align-items-center'>
           <a href='' className='position-relative'>
             <IoNotifications className='fs-3 text-blue-700'/>
-            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-              <span class="visually-hidden">New alerts</span>
+            <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+              <span className="visually-hidden">New alerts</span>
             </span>
           </a>
           <a href="" style={{width:35,height:35}} className='bg-secondary ms-3 rounded-circle overflow-hidden'>
-            <img src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=2567" alt="" className='w-100 h-100 object-fit-cover'/>
+            <img 
+              src={userImage} 
+              alt="User Profile" 
+              className='w-100 h-100 object-fit-cover' 
+            />
           </a>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;

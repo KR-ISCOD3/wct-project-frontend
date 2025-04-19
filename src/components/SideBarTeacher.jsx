@@ -1,29 +1,28 @@
 import React, { useState } from "react";
-import { FaBookOpen, FaUserFriends, FaUserCog, FaRegWindowRestore } from "react-icons/fa";
-import { RiHomeSmile2Fill } from "react-icons/ri";
-import { NavLink, useNavigate } from "react-router-dom";
-import { IoLogOut } from "react-icons/io5";
-import { PiStudentBold } from "react-icons/pi";
+import { FaRegWindowRestore } from "react-icons/fa";
+import { RiHome2Fill } from "react-icons/ri";
+import { NavLink } from "react-router-dom";
+import { IoLogOut, IoPeople, IoSettings } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 import { IoIosSchool } from "react-icons/io";
 import Loading from "./Loading"; // Import the Loading component
 
-function SideBar() {
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+function SideBarTeacher() {
+  const [isLoading, setIsLoading] = useState(false); // Manage loading state
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setIsLoading(true); // Show loading state
+    setIsLoading(true); // Set loading state to true when logging out
     dispatch(logoutUser())
       .then(() => {
-        // Redirect to login page after successful logout
-        navigate("/login");
+        navigate("/login"); // Redirect after successful logout
       })
       .catch((error) => {
         console.error("Logout failed:", error);
-        setIsLoading(false); // Hide loading state if logout fails
+        setIsLoading(false); // Reset loading state if an error occurs
       });
   };
 
@@ -45,40 +44,28 @@ function SideBar() {
         {/* Menu */}
         <menu className="p-0 flex-grow-1">
           <ul className="list-unstyled">
-            <NavLink to="/" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+            <NavLink to="/teacher-dashboard" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <FaRegWindowRestore className="me-2 fs-5" />
                 Dashboard
               </li>
             </NavLink>
-            <NavLink to="/student" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+            <NavLink to="" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
-                <FaUserFriends className="me-2 fs-5" />
-                Students
+                <RiHome2Fill className="me-2 fs-5" />
+                Create Class
               </li>
             </NavLink>
-            <NavLink to="/teacher" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+            <NavLink to="" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
-                <FaUserCog className="me-2 fs-5" />
-                Instructors
+                <IoPeople className="me-2 fs-5" />
+                List All Student
               </li>
             </NavLink>
-            <NavLink to="/class" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+            <NavLink to="" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
-                <RiHomeSmile2Fill className="me-2 fs-5" />
-                Classes
-              </li>
-            </NavLink>
-            <NavLink to="course" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
-              <li className="py-2 px-3">
-                <FaBookOpen className="me-2 fs-5" />
-                Courses
-              </li>
-            </NavLink>
-            <NavLink to="certificate" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
-              <li className="py-2 px-3">
-                <PiStudentBold className="me-2 fs-5" />
-                Certificate
+                <IoSettings className="me-2 fs-5" />
+                Setting
               </li>
             </NavLink>
           </ul>
@@ -87,11 +74,11 @@ function SideBar() {
         {/* Footer - Log Out Button */}
         <footer>
           <button
-            onClick={handleLogout}
+            onClick={handleLogout} // Attach the logout function
             className="btn btn-danger w-100 d-flex align-items-center justify-content-center"
-            disabled={isLoading} // Disable the button while loading
+            disabled={isLoading} // Disable button while loading
           >
-            
+           
                 <IoLogOut className="fs-3 me-2" />
                 Log out
           </button>
@@ -101,4 +88,4 @@ function SideBar() {
   );
 }
 
-export default SideBar;
+export default SideBarTeacher;

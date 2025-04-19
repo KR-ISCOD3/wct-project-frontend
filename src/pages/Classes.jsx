@@ -1,9 +1,8 @@
 import React from 'react';
 import { FcBarChart } from "react-icons/fc";
-import { IoEye, IoFileTrayFullSharp, IoFilter, IoTrashBin } from "react-icons/io5";
+import { IoFileTrayFullSharp, IoFilter, IoSearch } from "react-icons/io5";
 import { BiSolidExit } from "react-icons/bi";
 import { MdHourglassTop } from "react-icons/md";
-import { NavLink } from 'react-router-dom';
 import ClassTable from '../components/ClassTable';
 
 function Classes() {
@@ -69,22 +68,35 @@ function Classes() {
 
             {/* button */}
             <div className='py-3 d-flex justify-content-between'>
-              <div className='d-flex'>
-                <select name="" id="" className='form-select rounded-0 shadow-none border'>
-                 
-                  <option value="">C++, Algorithm, OPP</option>
-                  <option value="">Web-Design + React</option>
+                <form action="">
+                  <div className='d-flex'>
+                    <select name="" id="" className='form-select rounded-0 shadow-none border'>
+                    
+                    <option value="">C++, Algorithm, OPP</option>
+                    <option value="">Web-Design + React</option>
+                    
+                    </select>
+                    <select name="" id="" className='form-select shadow-none rounded-0 border ms-2'>
+                      <option className='text-success'>All Classes</option>
+                      <option className='text-primary'>Classes Closed</option>
+                      <option className='text-info'>Progress Classes</option>
+                      <option className='text-secondary'>Pre-End Classes</option>
+                      <option className='text-danger'>End Classes</option>
+                    </select>
+                    <select name="" id="" className='form-select shadow-none rounded-0 border ms-2'>
+                      <option className='' disabled>(Mon-Thu)</option>
+                      <option value="">09:00 - 10:30 am</option>
+                      <option value="">11:00 - 12:15 am</option>
+                      <option value="">12:30 - 01:45 pm</option>
+                      <option value="">02:00 - 03:15 pm</option>
+                    </select>     
+                    <button className='btn bg-blue-700 text-light rounded-0  d-flex align-items-center ms-2'>
+                      <IoSearch className='me-2'/>
+                      Find
+                    </button>        
+                  </div>
                   
-                </select>
-                <select name="" id="" className='form-select shadow-none rounded-0 border ms-2'>
-                  <option className='text-success'>All Classes</option>
-                  <option className='text-primary'>Classes Closed</option>
-                  <option className='text-info'>Progress Classes</option>
-                  <option className='text-secondary'>Pre-End Classes</option>
-                  <option className='text-danger'>End Classes</option>
-                </select>
-                
-              </div>
+                </form>
               <div className='ms-2'>
                 <form action="" className='d-flex'>
                   <div className='d-flex align-items-center mx-2'>
