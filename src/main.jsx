@@ -30,14 +30,20 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <Routes>
+      <Routes>
 
-        <Route path="/" element={<ProtectedRoute />}>
-          {/* Main App layout */}
+        {/* Protected routes for all roles */}
+        <Route path="/" element={<ProtectedRoute allowedRoles={['admin', 'assistant', 'teacher']} />}>
           <Route path="/" element={<App />}>
             <Route index element={<Dashboard />} />
+
             <Route path="teacher" element={<Teacher />} />
-            <Route path="student" element={<Student />} />
+            
+            <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+              <Route path="student" element={<Student />} />
+            </Route>
+
+
             <Route path="course" element={<Course />} />
             <Route path="class" element={<Classes />} />
             <Route path="account" element={<AccountTeacher />} />
@@ -45,34 +51,36 @@ createRoot(document.getElementById("root")).render(
             <Route path="certificate" element={<Certificate />} />
           </Route>
 
-          {/* Teacher Dashboard layout */}
+          {/* Teacher dashboard layout */}
           <Route path="teacher-dashboard" element={<TeacherDashboardHome />}>
             <Route index element={<TeacherDashboard />} />
           </Route>
 
         </Route>
 
-          <Route path="*" element={<NotFound />} /> {/* Catch-all inside App */}
+        {/* Public Routes */}
+        <Route path="*" element={<NotFound />} />
 
-          <Route
-            path="login"
-            element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            }
-          />
+        <Route
+          path="login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
 
-          <Route
-            path="register"
-            element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
-            }
-          />
+        <Route
+          path="register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
 
-        </Routes>
+      </Routes>
+
       </BrowserRouter>
     </Provider>
   </StrictMode>

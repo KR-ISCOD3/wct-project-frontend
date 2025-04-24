@@ -13,6 +13,8 @@ function SideBar() {
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userRole = localStorage.getItem("role"); 
+
 
   const handleLogout = () => {
     setIsLoading(true); // Show loading state
@@ -51,12 +53,14 @@ function SideBar() {
                 Dashboard
               </li>
             </NavLink>
-            <NavLink to="/student" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
-              <li className="py-2 px-3">
-                <FaUserFriends className="me-2 fs-5" />
-                Students
-              </li>
-            </NavLink>
+            {userRole === "admin" && (
+              <NavLink to="/student" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+                <li className="py-2 px-3">
+                  <FaUserFriends className="me-2 fs-5" />
+                  Students
+                </li>
+              </NavLink>
+            )}
             <NavLink to="/teacher" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <FaUserCog className="me-2 fs-5" />

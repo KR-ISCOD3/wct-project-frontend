@@ -19,8 +19,12 @@ export const fetchCourses = createAsyncThunk('courses/fetchCourses', async () =>
   const response = await axiosInstance.get('/');
   console.log(response.data); // for debugging
 
+  // ✅ Only keep courses where status is "enable"
+  const enabledCourses = response.data.data.filter(course => course.status === 'enabled');
+
+  return enabledCourses;
   // ✅ extract the array from the `data` property
-  return response.data.data;
+  // return response.data.data;
 });
 
 export const addCourse = createAsyncThunk('courses/addCourse', async (course) => {
@@ -64,7 +68,11 @@ const courseSlice = createSlice({
         state.courses.push(action.payload);
       })
       .addCase(deleteCourse.fulfilled, (state, action) => {
-        state.courses = state.courses.filter(course => course.id !== action.payload);
+        const id = action.payload;
+        const index = state.courses.findIndex(course => course.id === id);
+        if (index !== -1) {
+          state.courses[index].status = 'disabled'; // ✅ just mark disabled
+        }
       })
       .addCase(updateCourse.fulfilled, (state, action) => {
         const index = state.courses.findIndex(course => course.id === action.payload.id);
@@ -74,5 +82,6 @@ const courseSlice = createSlice({
       });
   },
 });
+
 
 export default courseSlice.reducer;

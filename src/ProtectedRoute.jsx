@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ allowedRoles }) => {
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
   const location = useLocation();
@@ -9,10 +9,10 @@ const ProtectedRoute = () => {
     return <Navigate to="/login" replace />;
   }
 
-  if (role === 'admin' || role == 'assistant') {
+  if (allowedRoles.includes(role)) {
     return <Outlet />;
   } else if (role === 'teacher') {
-    // If already on /teacher-dashboard or its children, allow access
+    // Special case for teachers
     if (location.pathname.startsWith("/teacher-dashboard")) {
       return <Outlet />;
     } else {
@@ -20,7 +20,6 @@ const ProtectedRoute = () => {
     }
   }
 
-  // Optional: handle unknown roles
   return <Navigate to="/login" replace />;
 };
 
