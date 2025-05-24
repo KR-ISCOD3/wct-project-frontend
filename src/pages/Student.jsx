@@ -4,7 +4,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import { TbTrashX } from "react-icons/tb";
 import { fetchCourses } from "../features/admin/courseSlice";
 import { registerStudent,getStudents } from "../features/admin/studentSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import TableStudent from "../components/TableStudent";
 
 function Student() {
@@ -28,12 +28,6 @@ function Student() {
   useEffect(() => {
     dispatch(fetchCourses());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (success) {
-  //     clearForm();
-  //   }
-  // }, [success]);
 
   // Place the useEffect for error handling here
   useEffect(() => {
@@ -85,7 +79,7 @@ function Student() {
           draggable: true,
           progress: undefined,
           theme: "light",
-      });
+         });
       })
       .finally(() => {
         setIsLoading(false);
@@ -94,9 +88,8 @@ function Student() {
   };
 
   return (
-    <div className="p-3 font-poppins animate__animated animate__fadeIn animate__faster">
-      <ToastContainer/>
-      <div className="d-flex">
+    <div className="p-3 font-poppins ">
+      <div className="d-flex animate__animated animate__fadeIn animate__faster">
         <form onSubmit={handleRegister} className="w-100 pb-3 border-bottom">
           <h2>Register-Form</h2>
           <p className="text-secondary">

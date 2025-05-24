@@ -31,7 +31,7 @@ function TeacherDashboardHome() {
 
   return (
     <>
-      {/* form-for admin */}
+      {/* form-for teacher */}
       <NotFound />
       <div className="container-fluid p-0 d-none d-xl-flex">
         <SideBarTeacher />

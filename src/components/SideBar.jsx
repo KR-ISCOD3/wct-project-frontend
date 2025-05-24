@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaBookOpen, FaUserFriends, FaUserCog, FaRegWindowRestore } from "react-icons/fa";
-import { RiHomeSmile2Fill } from "react-icons/ri";
+import { RiHome3Fill, RiHomeSmile2Fill } from "react-icons/ri";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoLogOut } from "react-icons/io5";
 import { PiStudentBold } from "react-icons/pi";
@@ -65,6 +65,12 @@ function SideBar() {
               <li className="py-2 px-3">
                 <FaUserCog className="me-2 fs-5" />
                 Instructors
+              </li>
+            </NavLink>
+            <NavLink to="/building" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+              <li className="py-2 px-3">
+                <RiHome3Fill className="me-2 fs-5" />
+                Building
               </li>
             </NavLink>
             <NavLink to="/class" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">

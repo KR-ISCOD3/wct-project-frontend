@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
+
 import Dashboard from "./pages/Dashboard.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Teacher from "./pages/Teacher.jsx";
@@ -25,42 +26,43 @@ import store from "./store.js";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import TeacherDashboardHome from "./TeacherDashboardHome.jsx";
 import PublicRoute from "./PublicRoute.jsx";
+import Building from "./pages/Building.jsx";
+// import CreateClass from "./teacher/CreateClass.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
       <Routes>
-
-        {/* Protected routes for all roles */}
-        <Route path="/" element={<ProtectedRoute allowedRoles={['admin', 'assistant', 'teacher']} />}>
+        {/* Protected routes for admin & assistant */}
+        <Route path="/" element={<ProtectedRoute allowedRoles={['admin', 'assistant']} />}>
           <Route path="/" element={<App />}>
             <Route index element={<Dashboard />} />
-
             <Route path="teacher" element={<Teacher />} />
-            
             <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
               <Route path="student" element={<Student />} />
             </Route>
-
-
             <Route path="course" element={<Course />} />
+            <Route path="building" element={<Building/>}/>
             <Route path="class" element={<Classes />} />
-            <Route path="account" element={<AccountTeacher />} />
+            <Route path="account/:instructorId" element={<AccountTeacher />} />
             <Route path="attendance" element={<Attendance />} />
             <Route path="certificate" element={<Certificate />} />
           </Route>
+        </Route>
 
-          {/* Teacher dashboard layout */}
-          <Route path="teacher-dashboard" element={<TeacherDashboardHome />}>
+        {/* Protected route for teacher */}
+        <Route
+          path="/teacher-dashboard"
+          element={<ProtectedRoute allowedRoles={['teacher']} />}
+        >
+          <Route element={<TeacherDashboardHome />}>
             <Route index element={<TeacherDashboard />} />
           </Route>
-
         </Route>
 
         {/* Public Routes */}
         <Route path="*" element={<NotFound />} />
-
         <Route
           path="login"
           element={
@@ -69,7 +71,6 @@ createRoot(document.getElementById("root")).render(
             </PublicRoute>
           }
         />
-
         <Route
           path="register"
           element={
@@ -78,8 +79,8 @@ createRoot(document.getElementById("root")).render(
             </PublicRoute>
           }
         />
-
       </Routes>
+
 
       </BrowserRouter>
     </Provider>

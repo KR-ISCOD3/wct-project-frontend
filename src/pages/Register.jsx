@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from '../features/auth/authSlice';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import Loading from '../components/Loading';
+// import echo from '../echo';
+
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +25,8 @@ function Register() {
     image: null,
     work_status: 'Full-Time',
     shift: 'Morning',
-    position: 'Mobile-App'
+    position: 'Mobile-App',
+    phone_number:''
   });
 
   const [errors, setErrors] = useState(null);
@@ -60,7 +63,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrors(null); // Clear previous errors
+    setErrors(null);  
 
     const data = new FormData();
     Object.keys(formData).forEach((key) => {
@@ -69,14 +72,29 @@ function Register() {
 
     try {
       const response = await dispatch(registerUser(data));
+      const payload = response.payload;
 
       if (response.meta.requestStatus === 'rejected') {
-        setLoading(false); // 🛠️ Fix: stop loading on failure
-        if (response.payload?.details) {
-          setErrors(response.payload.details);
+        setLoading(false);
+
+        const normalizedErrors = {};
+
+        if (payload?.errors) {
+          Object.entries(payload.errors).forEach(([key, value]) => {
+            normalizedErrors[key] = Array.isArray(value) ? value : [value];
+          });
+        } else if (payload?.details) {
+          normalizedErrors.general = [payload.details];
+        } else if (payload?.detail) {
+          normalizedErrors.general = [payload.detail];
+        } else if (payload?.message) {
+          normalizedErrors.general = [payload.message];
         } else {
-          console.error('Registration failed:', response.payload);
+          normalizedErrors.general = ['Registration failed.'];
         }
+
+        setErrors(normalizedErrors);
+        console.error('Registration failed:', payload);
       } else {
         const role = localStorage.getItem('role');
         if (!role) {
@@ -93,10 +111,11 @@ function Register() {
       }
     } catch (error) {
       console.error('Error occurred during registration:', error);
-      setLoading(false); // 🛠️ Also stop loading on any exception
+      setLoading(false);
+      setErrors({ general: ['Something went wrong. Please try again.'] });
     }
   };
-
+  
   return (
     <>
       <NotFound />
@@ -105,19 +124,23 @@ function Register() {
         <ParticleBackground />
         <div className="p-5 bg-blue-600 text-light shadow rounded-4 z-1">
           <form onSubmit={handleSubmit}>
-            {errors && Object.keys(errors).length > 0 && (
+            {errors && (
               <div className="alert alert-danger">
                 <p className='text-danger fw-bold mb-2'>Error-Message:</p>
-                {Object.keys(errors).map((key) => (
-                  <span key={key} className='alert-danger'>
-                    <strong>{key}:</strong>
-                    {errors[key].map((message, index) => (
-                      <span key={index} className='m-0'> {message}</span>
-                    ))} <br />
-                  </span>
-                ))}
+                {Object.keys(errors).map((key) => {
+                  const messages = Array.isArray(errors[key]) ? errors[key] : [errors[key]];
+                  return (
+                    <span key={key} className='alert-danger'>
+                      <strong>{key}:</strong>
+                      {messages.map((message, index) => (
+                        <span key={index} className='m-0'> {message}</span>
+                      ))} <br />
+                    </span>
+                  );
+                })}
               </div>
             )}
+
             <div className="d-flex justify-content-between align-items-center border-bottom mb-3 pb-3">
               <div>
                 <h3 className="m-0">Register Form</h3>
@@ -146,26 +169,30 @@ function Register() {
               <div>
                 {/* Name & Gender */}
                 <div className="d-flex mb-3">
-                  <div className="pe-2 col-8">
+                  <div className="pe-2 col-4">
                     <label htmlFor="name" className="form-label fw-medium">Full-Name*</label>
                     <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} className="form-control rounded-2 shadow-none border" placeholder="Full-Name" required />
-                  </div>
-                  <div className="col-4">
+                  </div>   
+                  <div className="col-4 pe-2 ">
                     <label htmlFor="gender" className="form-label fw-medium">Gender*</label>
                     <select name="gender_id" id="gender_id" value={formData.gender_id} onChange={handleChange} className="form-select rounded-2 shadow-none border" required>
                       <option value="1">Male</option>
                       <option value="2">Female</option>
                     </select>
                   </div>
+                  <div className="col-4">
+                    <label htmlFor="phone_number" className="form-label fw-medium">Phone Number*</label>
+                    <input type="text" name="phone_number" id="phone_number" value={formData.phone_number} onChange={handleChange} className="form-control rounded-2 shadow-none border" placeholder="Phone Number" required />
+                  </div>
                 </div>
 
                 {/* Email & Password */}
                 <div className="d-flex mb-3">
-                  <div className="pe-2">
+                  <div className="pe-2 col-6">
                     <label htmlFor="email" className="form-label fw-medium">Email*</label>
                     <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} className="form-control rounded-2 shadow-none border" placeholder="Email" required />
                   </div>
-                  <div>
+                  <div className='col-6'>
                     <label htmlFor="password" className="form-label fw-medium">Password*</label>
                     <div className="d-flex align-items-center border bg-body rounded-2">
                       <input type={showPassword ? "text" : "password"} name="password" id="password" value={formData.password} onChange={handleChange} className="form-control shadow-none border-0" placeholder="Password" required />

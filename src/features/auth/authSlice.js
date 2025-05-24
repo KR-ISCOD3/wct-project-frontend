@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_BASE;
+
 // ✅ Async thunk to register a user
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/register", userData);
+      const response = await axios.post(`${apiUrl}/register`, userData);
       console.log(response.data);
 
       const token = response.data.data.token;
@@ -29,16 +31,22 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/login", credentials);
+      const response = await axios.post(`${apiUrl}/login`, credentials);
       console.log(response.data);
 
-      const token = response.data.data.token;
-      const role = response.data.data.role;
+      if (!response.data.success) {
+        return rejectWithValue(response.data.message || 'Login failed');
+      }
+
+      const token = response.data.token;
+      const role = response.data.role;
+      const user = response.data.user;
 
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+      // localStorage.setItem("user", JSON.stringify(user));
 
-      return { token, role };
+      return { token, role, user };
     } catch (err) {
       const errorMessage = err.response?.data?.message || "Login failed";
       const errorDetails = err.response?.data?.errors || null;
@@ -54,7 +62,7 @@ export const logoutUser = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
 
-      await axios.post("http://127.0.0.1:8000/api/logout", null, {
+      await axios.post(`${apiUrl}/logout`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -77,13 +85,12 @@ export const getUser = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.get("http://127.0.0.1:8000/api/user", {
+      const response = await axios.get(`${apiUrl}/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      // console.log("User data fetched:", response.data); // Log the fetched data
       return response.data; // Return the user data
     } catch (err) {
       const errorMessage = err.response?.data?.message || "Fetching user failed";

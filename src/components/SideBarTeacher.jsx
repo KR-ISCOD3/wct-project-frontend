@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaRegWindowRestore } from "react-icons/fa";
-import { RiHome2Fill } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 import { IoLogOut, IoPeople, IoSettings } from "react-icons/io5";
 import { useDispatch } from "react-redux";
@@ -50,12 +49,7 @@ function SideBarTeacher() {
                 Dashboard
               </li>
             </NavLink>
-            <NavLink to="" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
-              <li className="py-2 px-3">
-                <RiHome2Fill className="me-2 fs-5" />
-                Create Class
-              </li>
-            </NavLink>
+           
             <NavLink to="" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <IoPeople className="me-2 fs-5" />
@@ -78,7 +72,6 @@ function SideBarTeacher() {
             className="btn btn-danger w-100 d-flex align-items-center justify-content-center"
             disabled={isLoading} // Disable button while loading
           >
-           
                 <IoLogOut className="fs-3 me-2" />
                 Log out
           </button>

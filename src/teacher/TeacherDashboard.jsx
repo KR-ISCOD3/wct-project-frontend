@@ -3,13 +3,14 @@ import { HiTrendingDown } from 'react-icons/hi'
 import { IoHome, IoPeople } from 'react-icons/io5'
 import { SiProgress } from 'react-icons/si'
 import TeacherClass from '../components/TeacherClass'
+import CreateClass from '../components/CreateClass'
 
 function TeacherDashboard() {
   return (
 
       <div className='p-3 font-poppins'>
           <div className="animate__animated animate__fadeIn animate__faster">
-            <h2>Dashboard Overview</h2>
+            {/* <h2>Overview</h2> */}
             <p className="text-secondary">Welcome back to the school management system</p>
           </div>
           <div className="row border-bottom  pb-3">
@@ -62,6 +63,7 @@ function TeacherDashboard() {
               </div>
             </div>
           </div>
+          <CreateClass/>
           <TeacherClass/>
  
       </div>

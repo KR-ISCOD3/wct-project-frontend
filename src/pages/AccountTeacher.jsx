@@ -1,22 +1,34 @@
 import React from 'react'
-import { IoCall } from 'react-icons/io5';
-import { PiGenderMaleFill } from "react-icons/pi";
-import { NavLink } from 'react-router-dom';
-
 import ClassListTeacher from '../components/ClassListTeacher';
 import AttOverview from '../components/AttOverview';
 import ClassOverview from '../components/ClassOverview';
 import ProfileInstructor from '../components/ProfileInstructor';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchInstructorById,clearInstructor } from '../features/admin/instructorSlice';
+import { useParams } from 'react-router-dom';
+
 
 function AccountTeacher() {
+  const { instructorId } = useParams();  // Access the instructorId from the URL params
+  const dispatch = useDispatch();
+  const { instructor, loading, error } = useSelector((state) => state.instructors);
+
+  useEffect(() => {
+    if (instructorId) {
+      dispatch(clearInstructor()); // Clear old data
+      dispatch(fetchInstructorById(instructorId)); // Load new data
+    }
+  }, [dispatch, instructorId]);
+
   return (
     <div className='container-fluid p-3 font-poppins animate__animated animate__fadeIn animate__faster'>
-      
+      {/* <h1>{instructor.name}</h1> */}
       <div className="d-flex">
         <div className='col-5 border-end'>
 
           {/* user-profile */}
-          <ProfileInstructor/>
+          <ProfileInstructor instructor={instructor}/>
           {/* user-profile */}
 
           {/* class-overview */}
