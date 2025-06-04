@@ -22,7 +22,7 @@ function TeacherDashboardHome() {
   // Log user data and any potential error
   useEffect(() => {
     if (user) {
-      console.log("Fetched User Data:", user)
+      // console.log("Fetched User Data:", user)
     }
     if (error) {
       console.log("Error fetching user:", error)

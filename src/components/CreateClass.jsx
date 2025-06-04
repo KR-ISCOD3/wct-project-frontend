@@ -5,7 +5,7 @@ import { fetchBuildings } from '../features/admin/buildingSlice';
 import { addClass } from '../features/teacher/classSlice';
 import { toast, ToastContainer } from 'react-toastify';
 
-function CreateClass() {
+function CreateClass({ onAdd }) {
   const dispatch = useDispatch();
 
   // Fetch user from auth state
@@ -15,6 +15,7 @@ function CreateClass() {
 
   const [loadingCourses, setLoadingCourses] = useState(true);
   const [loadingBuildings, setLoadingBuildings] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     teacher_id: '',
@@ -46,13 +47,12 @@ function CreateClass() {
     dispatch(fetchCourses())
       .unwrap()
       .finally(() => setLoadingCourses(false));
-  
+
     setLoadingBuildings(true);
     dispatch(fetchBuildings())
       .unwrap()
       .finally(() => setLoadingBuildings(false));
-  }, []);
-  
+  }, [dispatch]);
 
   // Set teacher_id when user is available
   useEffect(() => {
@@ -77,12 +77,18 @@ function CreateClass() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.course_id || !formData.building_id || !formData.time) {
+    if (
+      !formData.course_id ||
+      !formData.building_id ||
+      !formData.time ||
+      !formData.study_term ||
+      !formData.status
+    ) {
       alert('Please fill all required fields.');
       return;
     }
 
-    console.log('Submitting with teacher_id:', formData.teacher_id);
+    setSubmitting(true);
 
     dispatch(addClass(formData))
       .unwrap()
@@ -97,15 +103,18 @@ function CreateClass() {
           chapter: '',
           status: '',
         });
+        if (onAdd) onAdd();
       })
       .catch((err) => {
         console.error('Failed to create class:', err);
-      });
+        toast.error('Failed to create class. Please try again.');
+      })
+      .finally(() => setSubmitting(false));
   };
 
   return (
     <div className="mt-3 border-bottom mb-3">
-      <ToastContainer/>
+      <ToastContainer />
       <div className="mb-4">
         <h3 className="fw-medium mb-1">Create a New Class</h3>
         <p className="text-muted m-0">
@@ -123,10 +132,10 @@ function CreateClass() {
               onChange={handleChange}
               className="form-select rounded-2 shadow-none"
               required
-              disabled={loadingCourses}
+              disabled={loadingCourses || submitting}
             >
               <option value="">
-                {loadingCourses ? "Loading courses..." : "Select Course"}
+                {loadingCourses ? 'Loading courses...' : 'Select Course'}
               </option>
               {!loadingCourses &&
                 courses.map((course) => (
@@ -140,23 +149,23 @@ function CreateClass() {
           <div className="col-4">
             <label className="fw-medium">Building*</label>
             <select
-                name="building_id"
-                value={formData.building_id}
-                onChange={handleChange}
-                className="form-select rounded-2 shadow-none"
-                required
-                disabled={loadingBuildings}
-              >
-                <option value="">
-                  {loadingBuildings ? "Loading buildings..." : "Select Building"}
-                </option>
-                {!loadingBuildings &&
-                  buildings.map((building) => (
-                    <option key={building.id} value={building.id}>
-                      {building.name}
-                    </option>
-                  ))}
-              </select>
+              name="building_id"
+              value={formData.building_id}
+              onChange={handleChange}
+              className="form-select rounded-2 shadow-none"
+              required
+              disabled={loadingBuildings || submitting}
+            >
+              <option value="">
+                {loadingBuildings ? 'Loading buildings...' : 'Select Building'}
+              </option>
+              {!loadingBuildings &&
+                buildings.map((building) => (
+                  <option key={building.id} value={building.id}>
+                    {building.name}
+                  </option>
+                ))}
+            </select>
           </div>
 
           <div className="col-4">
@@ -167,6 +176,7 @@ function CreateClass() {
               onChange={handleChange}
               className="form-select rounded-2 shadow-none"
               required
+              disabled={submitting}
             >
               <option value="">Select Term</option>
               <option value="sat-sun">Sat - Sun</option>
@@ -184,7 +194,7 @@ function CreateClass() {
               onChange={handleChange}
               className="form-select rounded-2 shadow-none"
               required
-              disabled={!formData.study_term}
+              disabled={!formData.study_term || submitting}
             >
               <option value="">Select Time</option>
               {(timeSlots[formData.study_term] || []).map((slot, index) => (
@@ -203,6 +213,7 @@ function CreateClass() {
               onChange={handleChange}
               className="form-select rounded-2 shadow-none"
               required
+              disabled={submitting}
             >
               <option value="">Select Status</option>
               <option value="physical">Physical</option>
@@ -220,11 +231,16 @@ function CreateClass() {
               onChange={handleChange}
               className="form-control rounded-2 shadow-none"
               placeholder="e.g. Chapter 1 - Basics"
+              disabled={submitting}
             />
           </div>
 
           <div className="col-2 d-flex justify-content-end align-items-end">
-            <button type="submit" className="btn bg-blue-700 text-light px-5">
+            <button
+              type="submit"
+              className="btn bg-blue-700 text-light px-5"
+              disabled={submitting}
+            >
               + Create Class
             </button>
           </div>

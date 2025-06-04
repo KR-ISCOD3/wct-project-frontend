@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { HiTrendingDown } from 'react-icons/hi'
 import { IoHome, IoPeople } from 'react-icons/io5'
 import { SiProgress } from 'react-icons/si'
 import TeacherClass from '../components/TeacherClass'
 import CreateClass from '../components/CreateClass'
 
+
 function TeacherDashboard() {
+  const [refresh, setRefresh] = useState(false)
+
+  // This function will be passed to CreateClass
+  const handleAddClass = () => {
+    setRefresh(prev => !prev) // toggle refresh to trigger TeacherClass update
+  }
   return (
 
       <div className='p-3 font-poppins'>
@@ -63,9 +70,9 @@ function TeacherDashboard() {
               </div>
             </div>
           </div>
-          <CreateClass/>
-          <TeacherClass/>
- 
+
+          <CreateClass onAdd={handleAddClass} />
+          <TeacherClass refresh={refresh} />
       </div>
 
   )

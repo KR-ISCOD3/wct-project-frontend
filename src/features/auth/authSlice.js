@@ -9,7 +9,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${apiUrl}/register`, userData);
-      console.log(response.data);
+      // console.log(response.data);
 
       const token = response.data.data.token;
       const role = response.data.data.role;
@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${apiUrl}/login`, credentials);
-      console.log(response.data);
+      // console.log(response.data);
 
       if (!response.data.success) {
         return rejectWithValue(response.data.message || 'Login failed');

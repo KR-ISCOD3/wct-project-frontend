@@ -26,7 +26,7 @@ axiosInstance.interceptors.request.use(
 
 export const fetchCourses = createAsyncThunk('courses/fetchCourses', async () => {
   const response = await axiosInstance.get('/');
-  console.log(response.data); // for debugging
+  // console.log(response.data); // for debugging
 
   // Only keep courses where status is "enabled"
   const enabledCourses = response.data.data.filter(course => course.status === 'enabled');

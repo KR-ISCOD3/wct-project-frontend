@@ -27,6 +27,7 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 import TeacherDashboardHome from "./TeacherDashboardHome.jsx";
 import PublicRoute from "./PublicRoute.jsx";
 import Building from "./pages/Building.jsx";
+import ViewStudent from "./teacher/ViewStudent.jsx";
 // import CreateClass from "./teacher/CreateClass.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -58,6 +59,7 @@ createRoot(document.getElementById("root")).render(
         >
           <Route element={<TeacherDashboardHome />}>
             <Route index element={<TeacherDashboard />} />
+            <Route path="viewstu/:classid" element={<ViewStudent />} />
           </Route>
         </Route>
 
