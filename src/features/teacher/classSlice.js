@@ -48,6 +48,30 @@ export const fetchClassesById = createAsyncThunk(
     }
   }
 );
+// Inside classSlice.js
+
+export const fetchClassSummary = createAsyncThunk(
+  'classes/fetchClassSummary',
+  async (teacherId, { rejectWithValue }) => {
+    try {
+      const res = await axiosInstance.get(`/teacher/${teacherId}/summary`);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+export const updateClassStatus = createAsyncThunk(
+  'classes/updateClassStatus',
+  async ({ id, status_class }, { rejectWithValue }) => {
+    try {
+      const res = await axiosInstance.put(`/${id}/status`, { status_class });
+      return { id, status_class: res.data.status_class };
+    } catch (err) {
+      return rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
 
 const classSlice = createSlice({
   name: 'classes',
@@ -56,6 +80,13 @@ const classSlice = createSlice({
     fetchLoading: false,
     addLoading: false,
     error: null,
+    summary: {
+      total_students: 0,
+      total_classes: 0,
+      progress_classes: 0,
+      pre_end_classes: 0,
+    },
+    summaryLoading: false,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -104,7 +135,24 @@ const classSlice = createSlice({
       .addCase(fetchClassesById.rejected, (state, action) => {
         state.fetchLoading = false;
         state.error = action.error.message;
-      });
+      }).addCase(fetchClassSummary.pending, (state) => {
+        state.summaryLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchClassSummary.fulfilled, (state, action) => {
+        state.summaryLoading = false;
+        state.summary = action.payload;
+      })
+      .addCase(fetchClassSummary.rejected, (state, action) => {
+        state.summaryLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateClassStatus.fulfilled, (state, action) => {
+        const index = state.classes.findIndex(cls => cls.id === action.payload.id);
+        if (index !== -1) {
+          state.classes[index] = action.payload;
+        }
+      });   
   },
 });
 

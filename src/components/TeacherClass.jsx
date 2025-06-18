@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchClassesById, updateClass } from "../features/teacher/classSlice";
+import { fetchClassesById, updateClass, updateClassStatus } from "../features/teacher/classSlice";
 import { fetchCourses } from "../features/admin/courseSlice";
 import { fetchBuildings } from "../features/admin/buildingSlice";
 import { BsThreeDots } from "react-icons/bs";
@@ -187,21 +187,72 @@ function TeacherClass({ refresh }) {
       .unwrap()
       .then(() => {
         toast.success("Student added successfully!");
+        setClasses(prev => 
+          prev.map(cls => 
+            cls.id === selectedClassId
+              ? { ...cls, total_students: (cls.total_students || 0) + 1 }
+              : cls
+          )
+        );
         setFormData({
           name: "",
-          gender: 1,
+          gender_id: 1,
           tel: "",
           teacher_id: user?.id || null,
           class_id: selectedClassId,
         });
-        setShowAddStudentModal(false); // Close modal after adding
         dispatch(fetchClassesById(user.id))
+        setShowAddStudentModal(false); // Close modal after adding
       })
       .catch((err) => {
         console.error("Failed to add student:", err);
       }).finally(()=>{
         setLoadingStu(false);
       });
+  };
+  
+  const handleMarkPreEnd = async (classId) => {
+    try {
+      console.log("Marking class as pre-end:", classId);
+      await dispatch(updateClassStatus({ id: classId, status_class: "pre-end" })).unwrap();
+      console.log("Update successful");
+  
+      if (user?.id) {
+        console.log("Fetching classes for user:", user.id);
+        const updatedClasses = await dispatch(fetchClassesById(user.id)).unwrap();
+        setClasses(updatedClasses); // ✅ this makes the border update
+        console.log("Fetch classes successful");
+      } else {
+        console.warn("User ID is undefined, cannot fetch classes.");
+      }
+  
+      toast.success("Class marked as Pre-End!");
+    } catch (err) {
+      console.error("Failed to update status:", err);
+      toast.error("Failed to mark class as Pre-End.");
+    }
+  };
+  
+  const handleMarkEnd = async (classId) => {
+    try {
+      console.log("Marking class as end:", classId);
+      await dispatch(updateClassStatus({ id: classId, status_class: "end" })).unwrap();
+      console.log("Update successful");
+  
+      if (user?.id) {
+        console.log("Fetching classes for user:", user.id);
+        const updatedClasses = await dispatch(fetchClassesById(user.id)).unwrap();
+        setClasses(updatedClasses); // ✅ this makes the border update
+        console.log("Fetch classes successful");
+      } else {
+        console.warn("User ID is undefined, cannot fetch classes.");
+      }
+  
+      toast.success("Class marked as End!");
+    } catch (err) {
+      console.error("Failed to update status:", err);
+      toast.error("Failed to mark class as End.");
+    }
   };
 
   return (
@@ -238,66 +289,72 @@ function TeacherClass({ refresh }) {
         </div>
       ) : (
         classes.map((classData) => (
-          <div key={classData.id} className="col-4 my-2">
-            <div className="card p-3 border border-warning border-5">
-              <div className="d-flex align-items-center justify-content-between mb-4">
-                <div className="col-11 d-flex align-items-center">
-                  <PiHouseLineDuotone className="fs-3 me-2" />
-                  <h3 className="m-0">
-                    {classData.course_name ||
-                      `Course ID: ${classData.course_id}`}
-                  </h3>
-                </div>
-                <div className="col-1 text-end">
-                  <div className="dropdown">
-                    <a
-                      className="btn border-0 p-0"
-                      href="#"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      onClick={(e) => e.preventDefault()}
+          
+          <div
+            key={classData.id}
+            className={`col-4 my-2`}
+          >
+            <div
+              className={`card p-3 border border-5 ${
+                classData.status_class === "pre-end" ? "border-secondary" : 
+                classData.status_class === "end" ? "border-danger" : "border-primary"
+              }`}
+            >
+            <div className="d-flex align-items-center justify-content-between mb-4">
+              <div className="col-11 d-flex align-items-center">
+                <PiHouseLineDuotone className="fs-3 me-2" />
+                <h3 className="m-0">
+                  {classData.course_name || `Course ID: ${classData.course_id}`}
+                </h3>
+              </div>
+              <div className="col-1 text-end">
+                <div className="dropdown">
+                  <a
+                    className="btn border-0 p-0"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    <BsThreeDots />
+                  </a>
+                  <ul className="dropdown-menu px-2">
+                    <button
+                      type="button"
+                      className="btn border w-100 text-start my-1"
+                      onClick={() => toggleAddStudentModal(classData.id)}
                     >
-                      <BsThreeDots />
-                    </a>
-                    <ul className="dropdown-menu px-2">
-                      <button
-                        type="button"
-                        className="btn border w-100 text-start my-1"
-                        onClick={() => toggleAddStudentModal(classData.id)}
-                      >
-                        Add Student
-                      </button>
+                      Add Student
+                    </button>
 
-                      <button
-                        type="button"
-                        className="btn border w-100 text-start my-1"
-                      >
-                        Transfer Class
-                      </button>
-                      <button
-                        type="button"
-                        className="btn border w-100 text-start my-1"
-                        onClick={() => handleOpenEditModal(classData)}
-                      >
-                        Update Class
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-secondary border w-100 text-start my-1"
-                      >
-                        Pre-End
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-danger border w-100 text-start my-1"
-                      >
-                        End Classes
-                      </button>
-                    </ul>
-                  </div>
+                    <button
+                      type="button"
+                      className="btn border w-100 text-start my-1"
+                      onClick={() => handleOpenEditModal(classData)}
+                    >
+                      Update Class
+                    </button>
+
+                    <button
+                      type="button"
+                      className={`btn border w-100 text-start my-1 btn-secondary`}
+                      onClick={() => handleMarkPreEnd(classData.id)}
+                    >
+                      Pre-End
+                    </button>
+
+                    <button
+                      type="button"
+                      className="btn btn-danger border w-100 text-start my-1"
+                      onClick={() => handleMarkEnd(classData.id)}
+                    >
+                      End Classes
+                    </button>
+                  </ul>
                 </div>
               </div>
+            </div>
 
               <table className="table">
                 <tbody>
@@ -328,15 +385,11 @@ function TeacherClass({ refresh }) {
                   </tr>
                   <tr className="fs-5 text-secondary align-middle">
                     <td className="col-3 py-2">Location:</td>
-                    <td className="text-dark">
-                      {classData.building_name || "N/A"}
-                    </td>
+                    <td className="text-dark">{classData.building_name || "N/A"}</td>
                   </tr>
                   <tr className="fs-5 text-secondary align-middle">
                     <td className="col-3 py-2">Status:</td>
-                    <td className="text-dark">
-                      {classData.status || "Unknown"}
-                    </td>
+                    <td className="text-dark">{classData.status || "Unknown"}</td>
                   </tr>
                 </tbody>
               </table>
@@ -350,6 +403,7 @@ function TeacherClass({ refresh }) {
               </NavLink>
             </div>
           </div>
+
         ))
       )}
 
@@ -519,7 +573,7 @@ function TeacherClass({ refresh }) {
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        gender: Number(e.target.value),
+                        gender_id: Number(e.target.value),
                       })
                     }
                   >

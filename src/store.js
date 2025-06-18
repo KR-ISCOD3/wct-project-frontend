@@ -8,6 +8,7 @@ import searchReducer from "./features/search/searchSlice";
 import buildingReducer from "./features/admin/buildingSlice";
 import classReducer from "./features/teacher/classSlice";
 import teacherStudentReducer from "./features/teacher/teacherStuSlice";
+import attendanceReducer from "./features/teacher/attendanceSlice"
 
 const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ const store = configureStore({
     buildings: buildingReducer,
     classes: classReducer,
     teacherStu: teacherStudentReducer,
+    attendance: attendanceReducer,
   },
 });
 

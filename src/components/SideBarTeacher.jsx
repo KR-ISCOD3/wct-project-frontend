@@ -49,13 +49,7 @@ function SideBarTeacher() {
                 Dashboard
               </li>
             </NavLink>
-           
-            <NavLink to="" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
-              <li className="py-2 px-3">
-                <IoPeople className="me-2 fs-5" />
-                List All Student
-              </li>
-            </NavLink>
+
             <NavLink to="" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <IoSettings className="me-2 fs-5" />
