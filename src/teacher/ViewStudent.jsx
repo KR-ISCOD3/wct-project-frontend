@@ -5,7 +5,7 @@ import { IoEye, IoFemale, IoMale } from 'react-icons/io5';
 import { PiExport } from 'react-icons/pi';
 import { NavLink, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchStudentsByClassId, updateStudent } from '../features/teacher/teacherStuSlice';
+import { deleteStudent, fetchStudentsByClassId, updateStudent } from '../features/teacher/teacherStuSlice';
 import { toast, ToastContainer } from 'react-toastify';
 import { MdSpatialTracking } from "react-icons/md";
 import { fetchAttendanceByClass, submitAttendance } from '../features/teacher/attendanceSlice';
@@ -109,47 +109,51 @@ function ViewStudent() {
 
   const [loadingAtt,setLoadingAtt] = useState(false)
 
-    const handleAttendanceSave = async () => {
-    setLoadingAtt(true); // Show loading
+  const handleAttendanceSave = async () => {
+  setLoadingAtt(true); // Show loading
 
-    const attendances = students.map(student => {
-      const status = attendanceData[student.id] || {
-        absent: true,
-        present: false,
-        permission: false,
-      };
-
-      let attendance_status = null;
-      if (status.present) attendance_status = "P";
-      else if (status.permission) attendance_status = "PM";
-      else if (status.absent) attendance_status = "A";
-
-      return {
-        student_id: student.id,
-        attendance_status,
-        reason: null,
-      };
-    });
-
-      const attendancePayload = {
-        class_id: classId,
-        teacher_id: 2,
-        date: new Date().toISOString().slice(0, 10),
-        attendances,
-      };
-
-      try {
-        await dispatch(submitAttendance(attendancePayload)).unwrap(); // Use unwrap if you're using createAsyncThunk
-        await dispatch(fetchAttendanceByClass(classId));
-        setShowAttendanceModal(false);
-        toast.success("Attendance Was Recorded.");
-      } catch (error) {
-        console.error("Failed to submit attendance:", error);
-      } finally {
-        setLoadingAtt(false); // Hide loading regardless of success or failure
-      }
+  const attendances = students.map(student => {
+    const status = attendanceData[student.id] || {
+      absent: true,
+      present: false,
+      permission: false,
     };
 
+    let attendance_status = null;
+    if (status.present) attendance_status = "P";
+    else if (status.permission) attendance_status = "PM";
+    else if (status.absent) attendance_status = "A";
+
+    return {
+      student_id: student.id,
+      attendance_status,
+      reason: null,
+    };
+  });
+
+    const attendancePayload = {
+      class_id: classId,
+      teacher_id: 2,
+      date: new Date().toISOString().slice(0, 10),
+      attendances,
+    };
+
+    try {
+      await dispatch(submitAttendance(attendancePayload)).unwrap(); // Use unwrap if you're using createAsyncThunk
+      await dispatch(fetchAttendanceByClass(classId));
+      setShowAttendanceModal(false);
+      toast.success("Attendance Was Recorded.");
+    } catch (error) {
+      console.error("Failed to submit attendance:", error);
+    } finally {
+      setLoadingAtt(false); // Hide loading regardless of success or failure
+    }
+  };
+
+  const handleDelete = (studentId) => {
+    dispatch(deleteStudent(studentId));
+    toast.success("Delete Success.");
+  };
 
   return (
     <>
@@ -270,7 +274,7 @@ function ViewStudent() {
                             <li>
                               <button
                                 className="btn w-100 text-start p-2 d-flex align-items-center"
-                                onClick={() => toast.info('Delete feature not implemented')}
+                                onClick={() => handleDelete(student.id)}
                               >
                                 <FaTrash className='me-2' /> Delete
                               </button>
