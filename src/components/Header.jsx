@@ -39,7 +39,7 @@ function Header() {
         </form>
 
         {/* ---------- Notifications & Profile ---------- */}
-        <div className="d-flex align-items-center">
+        {/* <div className="d-flex align-items-center">
           <a href="#" className="position-relative">
             <IoNotifications className="fs-3 text-blue-700" />
             <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
@@ -53,7 +53,7 @@ function Header() {
               className="w-100 h-100 object-fit-cover"
             />
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );

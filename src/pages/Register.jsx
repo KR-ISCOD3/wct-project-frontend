@@ -155,7 +155,7 @@ function Register() {
             </div>
 
             <div className="d-flex align-items-center">
-              <div className="me-4 border-end pe-4">
+              {/* <div className="me-4 border-end pe-4">
                 <div style={{ width: 200, height: 250 }} className="bg-secondary border">
                   <img src={formData.image ? URL.createObjectURL(formData.image) : "./image/placeholder.png"} alt="Preview" className="w-100 h-100 object-fit-cover" />
                 </div>
@@ -164,7 +164,7 @@ function Register() {
                   Upload
                   <IoIosCloudUpload className="ms-2" />
                 </button>
-              </div>
+              </div> */}
 
               <div>
                 {/* Name & Gender */}

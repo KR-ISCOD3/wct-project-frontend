@@ -47,17 +47,17 @@ function SideBar() {
         {/* Menu */}
         <menu className="p-0 flex-grow-1">
           <ul className="list-unstyled">
-            <NavLink to="/" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+            {/* <NavLink to="/" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <FaRegWindowRestore className="me-2 fs-5" />
                 Dashboard
               </li>
-            </NavLink>
+            </NavLink> */}
             {userRole === "admin" && (
-              <NavLink to="/student" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+              <NavLink to="/" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
                 <li className="py-2 px-3">
                   <FaUserFriends className="me-2 fs-5" />
-                  Students
+                  Register Student
                 </li>
               </NavLink>
             )}
@@ -73,24 +73,24 @@ function SideBar() {
                 Building
               </li>
             </NavLink>
-            <NavLink to="/class" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+            {/* <NavLink to="/class" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <RiHomeSmile2Fill className="me-2 fs-5" />
                 Classes
               </li>
-            </NavLink>
+            </NavLink> */}
             <NavLink to="course" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <FaBookOpen className="me-2 fs-5" />
                 Courses
               </li>
             </NavLink>
-            <NavLink to="certificate" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
+            {/* <NavLink to="certificate" className="d-flex align-items-center hover-li text-light nav-link rounded-2 my-2">
               <li className="py-2 px-3">
                 <PiStudentBold className="me-2 fs-5" />
                 Certificate
               </li>
-            </NavLink>
+            </NavLink> */}
           </ul>
         </menu>
 

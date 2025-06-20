@@ -232,31 +232,15 @@
                       {instructor.status}
                     </span>
                   </div>
-                  <div className="dropdown">
-                    <a
-                      className="btn border-0 p-0"
-                      href="#"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <BsThreeDots />
-                    </a>
-                    <ul className="dropdown-menu px-2">
-                      <NavLink className="nav-link p-2" to={`/account/${instructor.id}`}>
+                  <div>
+                  <button onClick={() => setSelectedInstructorId(instructor.id)} className="btn nav-link " data-bs-toggle="modal" data-bs-target="#deletemodal">
                         <li className="d-flex align-items-center">
-                          <IoEye className="fs-5 me-2" />
-                          View Profile
+                          <FaTrash className="fs-5 text-danger" />
+                          {/* Delete */}
                         </li>
-                      </NavLink>
-                      <button onClick={() => setSelectedInstructorId(instructor.id)} className="btn nav-link p-2" data-bs-toggle="modal" data-bs-target="#deletemodal">
-                        <li className="d-flex align-items-center">
-                          <FaTrash className="fs-5 me-2" />
-                          Delete
-                        </li>
-                      </button>                  
-                    </ul>
+                      </button>
                   </div>
+                 
                 </div>
 
                 {/* Instructor Info */}

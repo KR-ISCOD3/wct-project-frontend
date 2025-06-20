@@ -38,10 +38,10 @@ createRoot(document.getElementById("root")).render(
         {/* Protected routes for admin & assistant */}
         <Route path="/" element={<ProtectedRoute allowedRoles={['admin', 'assistant']} />}>
           <Route path="/" element={<App />}>
-            <Route index element={<Dashboard />} />
-            <Route path="teacher" element={<Teacher />} />
+            {/* <Route index element={<Dashboard />} /> */}
+            <Route  path="teacher" element={<Teacher />} />
             <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-              <Route path="student" element={<Student />} />
+              <Route index element={<Student />} />
             </Route>
             <Route path="course" element={<Course />} />
             <Route path="building" element={<Building/>}/>
