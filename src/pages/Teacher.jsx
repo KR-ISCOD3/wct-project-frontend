@@ -212,7 +212,7 @@
               <div className="card border p-4 shadow">
                 <div className="d-flex justify-content-between font-poppins">
                   <div>
-                    <div style={{ width: 75, height: 75 }} className='rounded-circle bg-secondary overflow-hidden'>
+                    {/* <div style={{ width: 75, height: 75 }} className='rounded-circle bg-secondary overflow-hidden'>
                       {instructor.image ? (
                         <img src={instructor.image} alt={instructor.name} className='w-100 h-100 object-fit-cover' />
                       ) : (
@@ -220,7 +220,7 @@
                           <span>No Image</span>
                         </div>
                       )}
-                    </div>
+                    </div> */}
                     <p className="m-0 fs-5">{instructor.name}</p>
                     <span
                       className={`px-3 ${
